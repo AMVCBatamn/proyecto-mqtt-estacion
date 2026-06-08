@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 30px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: #003366;
+}
+
+h2 {
+    color: #005599;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: #003366;
+    color: white;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.pagination {
+    margin-top: 20px;
+}

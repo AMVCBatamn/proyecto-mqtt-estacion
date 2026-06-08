@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Proyecto Integrador - Grupo 6</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Proyecto Integrador - Grupo 6</h1>
+
+        <h2>Estación Meteorológica MQTT</h2>
+
+        <button onclick="location.reload()">
+            Actualizar
+        </button>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Estación</th>
+                    <th>Sensor</th>
+                    <th>Valor</th>
+                    <th>Fecha</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for fila in mediciones %}
+
+                <tr>
+                    <td>{{ fila.id }}</td>
+                    <td>{{ fila.estacion }}</td>
+                    <td>{{ fila.sensor }}</td>
+                    <td>{{ fila.valor }}</td>
+                    <td>{{ fila.fecha }}</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <div class="pagination">
+
+            <button>Anterior</button>
+
+            <span>Página 1</span>
+
+            <button>Siguiente</button>
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+
+</html>

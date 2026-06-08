@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import random
 import time
 import json
+from datetime import datetime
 
 BROKER = "mqtt.eict.ce.pucmm.edu.do"
 PORT = 1883
@@ -15,24 +16,22 @@ client.username_pw_set(USERNAME, PASSWORD)
 
 client.connect(BROKER, PORT, 60)
 
-print("Conectado al broker MQTT")
+print("=" * 60)
+print("CONECTADO AL BROKER MQTT")
+print("=" * 60)
 
 while True:
 
-    # Simular 3 estaciones
     for estacion in range(1, 4):
 
         sensores = {
 
             "temperatura": round(random.uniform(20, 35), 2),
-
             "humedad": round(random.uniform(40, 95), 2),
-
             "viento": round(random.uniform(0, 80), 2),
-
             "lluvia": round(random.uniform(0, 20), 2),
-
             "presion": round(random.uniform(950, 1050), 2)
+
         }
 
         for sensor, valor in sensores.items():
@@ -41,16 +40,24 @@ while True:
 
             payload = {
 
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "estacion": estacion,
                 "sensor": sensor,
                 "valor": valor
+
             }
 
             client.publish(topic, json.dumps(payload))
 
-            print(f"Publicado -> {topic}")
-            print(payload)
+            print("\n" + "=" * 60)
+            print(f"TOPIC: {topic}")
+            print("=" * 60)
 
-    print("-" * 50)
+            print(json.dumps(payload, indent=4))
+
+        time.sleep(0.2)
+
+    print("\n" + "-" * 60)
+    print("Esperando nuevos datos...\n")
 
     time.sleep(5)
