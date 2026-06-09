@@ -49,218 +49,260 @@ def home():
     datos = cursor.fetchall()
 
     html = f"""
-    <!DOCTYPE html>
+<!DOCTYPE html>
 
-    <html>
+<html>
 
-    <head>
+<head>
 
-        <title>Proyecto Integrador - Grupo 6</title>
+    <title>Proyecto Integrador - Grupo 6</title>
 
-        <meta http-equiv="refresh" content="5">
+    <meta http-equiv="refresh" content="5">
 
-        <style>
+    <style>
 
-            body {{
-                font-family: Arial, sans-serif;
-                background: #f4f4f4;
-                margin: 30px;
-            }}
+        body {{
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 30px;
+        }}
 
-            .card {{
-                background: white;
-                padding: 25px;
-                border-radius: 12px;
-                box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
-                margin-bottom: 25px;
-            }}
+        .card {{
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }}
 
-            h1 {{
-                color: #003366;
-                margin-bottom: 10px;
-            }}
+        h1 {{
+            color: #003366;
+            margin-bottom: 5px;
+        }}
 
-            h2 {{
-                color: #005599;
-            }}
+        h2 {{
+            color: #005599;
+            margin-top: 0;
+        }}
 
-            table {{
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 15px;
-            }}
+        .alert {{
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+        }}
 
-            th {{
-                background: #003366;
-                color: white;
-                padding: 12px;
-            }}
+        .stats {{
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }}
 
-            td {{
-                padding: 10px;
-                border: 1px solid #ddd;
-            }}
+        .stat {{
+            flex: 1;
+            background: #003366;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }}
 
-            tr:nth-child(even) {{
-                background: #f7f7f7;
-            }}
+        .stat h3 {{
+            margin: 0;
+            font-size: 16px;
+        }}
 
-            .btn {{
-                background: #003366;
-                color: white;
-                text-decoration: none;
-                padding: 10px 18px;
-                border-radius: 8px;
-                font-weight: bold;
-                margin: 5px;
-                display: inline-block;
-            }}
+        .stat p {{
+            margin: 10px 0 0;
+            font-size: 28px;
+            font-weight: bold;
+        }}
 
-            .btn:hover {{
-                background: #005599;
-            }}
+        table {{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }}
 
-            .center {{
-                text-align: center;
-            }}
+        th {{
+            background: #003366;
+            color: white;
+            padding: 12px;
+        }}
 
-            .selector {{
-                margin-top: 10px;
-                margin-bottom: 15px;
-            }}
+        td {{
+            padding: 10px;
+            border: 1px solid #ddd;
+        }}
 
-        </style>
+        tr:nth-child(even) {{
+            background: #f8f8f8;
+        }}
 
-    </head>
+        .latest {{
+            background: #d4edda !important;
+            font-weight: bold;
+        }}
 
-    <body>
+        .btn {{
+            background: #003366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 5px;
+            display: inline-block;
+        }}
 
-        <div class="card">
+        .btn:hover {{
+            background: #005599;
+        }}
 
-            <h1>Proyecto Integrador - Grupo 6</h1>
+        .center {{
+            text-align: center;
+        }}
 
-            <h2>Estación Meteorológica MQTT</h2>
+        .selector {{
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }}
 
-            <p><b>Total de registros:</b> {total_registros}</p>
+    </style>
 
-            <p><b>Estaciones:</b> 3</p>
+</head>
 
-            <p><b>Sensores:</b> Temperatura, Humedad, Viento, Lluvia y Presión</p>
+<body>
 
-            <p><b>Base de Datos:</b> MariaDB</p>
+    <div class="card">
 
-            <p><b>Servidor:</b> Flask + HTTPS</p>
+        <h1>Proyecto Integrador - Grupo 6</h1>
 
-            <a class="btn" href="/">Actualizar</a>
+        <h2>Estación Meteorológica MQTT</h2>
+
+        <div class="alert">
+            Los datos se muestran en orden descendente.
+            Las lecturas más recientes aparecen primero.
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <h3>Total de Registros</h3>
+                <p>{total_registros:,}</p>
+            </div>
+
+            <div class="stat">
+                <h3>Estaciones</h3>
+                <p>3</p>
+            </div>
+
+            <div class="stat">
+                <h3>Sensores</h3>
+                <p>5</p>
+            </div>
 
         </div>
 
-        <div class="card">
+    </div>
 
-            <h3>Últimas mediciones registradas</h3>
+    <div class="card">
 
-            <div class="selector">
+        <h3>Últimas mediciones registradas</h3>
 
-                <b>Mostrar:</b>
+        <div class="selector">
 
-                <a class="btn" href="/?page=1&limit=20">20</a>
+            <b>Mostrar registros por página:</b>
 
-                <a class="btn" href="/?page=1&limit=50">50</a>
+            <a class="btn" href="/?page=1&limit=20">20</a>
 
-                <a class="btn" href="/?page=1&limit=100">100</a>
+            <a class="btn" href="/?page=1&limit=50">50</a>
 
-            </div>
+            <a class="btn" href="/?page=1&limit=100">100</a>
 
-            <p>
-                Mostrando {limite} registros por página
-            </p>
+        </div>
 
-            <table>
+        <p>
+            Mostrando {limite} registros por página
+        </p>
 
-                <tr>
+        <table>
 
-                    <th>ID</th>
+            <tr>
+                <th>ID</th>
+                <th>Estación</th>
+                <th>Sensor</th>
+                <th>Valor</th>
+                <th>Fecha</th>
+            </tr>
+"""
 
-                    <th>Estación</th>
+    for i, fila in enumerate(datos):
 
-                    <th>Sensor</th>
-
-                    <th>Valor</th>
-
-                    <th>Fecha</th>
-
-                </tr>
-    """
-
-    for fila in datos:
+        clase = "latest" if i == 0 else ""
 
         html += f"""
-        <tr>
-
-            <td>{fila[0]}</td>
-
-            <td>{fila[1]}</td>
-
-            <td>{fila[2]}</td>
-
-            <td>{fila[3]}</td>
-
-            <td>{fila[4]}</td>
-
-        </tr>
+            <tr class="{clase}">
+                <td>{fila[0]}</td>
+                <td>{fila[1]}</td>
+                <td>{fila[2]}</td>
+                <td>{fila[3]}</td>
+                <td>{fila[4]}</td>
+            </tr>
         """
 
     html += f"""
-            </table>
+        </table>
 
-            <br>
+        <br>
 
-            <div class="center">
+        <div class="center">
 
-                <a class="btn"
-                   href="/?page={max(1,pagina-1)}&limit={limite}">
-                   ← Anterior
-                </a>
+            <a class="btn"
+               href="/?page={max(1,pagina-1)}&limit={limite}">
+               ← Anterior
+            </a>
 
-                <span style="
-                    font-size:22px;
-                    font-weight:bold;
-                    margin-left:15px;
-                    margin-right:15px;
-                ">
-                    Página {pagina} de {total_paginas}
-                </span>
+            <span style="
+                font-size:22px;
+                font-weight:bold;
+                margin-left:15px;
+                margin-right:15px;
+            ">
+                Página {pagina} de {total_paginas}
+            </span>
 
-                <a class="btn"
-                   href="/?page={min(total_paginas,pagina+1)}&limit={limite}">
-                   Siguiente →
-                </a>
-
-            </div>
-
-            <br>
-
-            <div class="center">
-
-                <small style="color:gray;">
-
-                    Actualización automática cada 5 segundos
-
-                </small>
-
-            </div>
+            <a class="btn"
+               href="/?page={min(total_paginas,pagina+1)}&limit={limite}">
+               Siguiente →
+            </a>
 
         </div>
 
-    </body>
+        <br>
 
-    </html>
-    """
+        <div class="center">
+
+            <small style="color:gray;">
+                Actualización automática cada 5 segundos
+            </small>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+"""
 
     cursor.close()
     db.close()
 
     return html
+
 
 if __name__ == "__main__":
     app.run(
