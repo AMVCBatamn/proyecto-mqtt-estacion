@@ -20,11 +20,12 @@ cursor = db.cursor()
 # MQTT CONFIG
 # =========================================
 
-BROKER = "mqtt.eict.ce.pucmm.edu.do"
+#BROKER = "mqtt.eict.ce.pucmm.edu.do"
+BROKER = "test.mosquitto.org"
 PORT = 1883
 
-USERNAME = "itt363-grupo6"
-PASSWORD = "jCE2XTj4Ak6g"
+#USERNAME = "itt363-grupo6"
+#PASSWORD = "jCE2XTj4Ak6g"
 
 TOPIC = "/itt363-grupo6/#"
 
@@ -120,7 +121,7 @@ def on_message(client, userdata, msg):
 
 client = mqtt.Client()
 
-client.username_pw_set(USERNAME, PASSWORD)
+#client.username_pw_set(USERNAME, PASSWORD)
 
 client.on_connect = on_connect
 client.on_message = on_message

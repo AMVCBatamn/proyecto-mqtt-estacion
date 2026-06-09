@@ -4,15 +4,15 @@ import time
 import json
 from datetime import datetime
 
-BROKER = "mqtt.eict.ce.pucmm.edu.do"
+BROKER = "test.mosquitto.org"
 PORT = 1883
 
-USERNAME = "itt363-grupo6"
-PASSWORD = "jCE2XTj4Ak6g"
+#USERNAME = "itt363-grupo6"
+#PASSWORD = "jCE2XTj4Ak6g"
 
 client = mqtt.Client()
 
-client.username_pw_set(USERNAME, PASSWORD)
+#client.username_pw_set(USERNAME, PASSWORD)
 
 client.connect(BROKER, PORT, 60)
 
